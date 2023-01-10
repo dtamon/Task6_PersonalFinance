@@ -10,4 +10,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Task6_PersonalFinance.Core\Task6_PersonalFinance.Core.csproj" />
+    <ProjectReference Include="..\Task6_PersonalFinance.DataAccess\Task6_PersonalFinance.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>
