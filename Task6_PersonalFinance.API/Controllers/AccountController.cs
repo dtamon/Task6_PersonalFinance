@@ -15,11 +15,19 @@ namespace Task6_PersonalFinance.API.Controllers
         {
             _accountService = accountService;
         }
+
         [HttpPost("register")]
         public async Task<IActionResult> RegisterUser(RegisterUserDto registerDto)
         {
             await _accountService.RegisterUser(registerDto);
             return Ok("Registered successfully");
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> SignIn(LoginUserDto loginDto)
+        {
+            string token = await _accountService.GenerateJwt(loginDto);
+            return Ok(token);
         }
     }
 }

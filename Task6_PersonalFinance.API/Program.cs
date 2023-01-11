@@ -2,6 +2,9 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Task6_PersonalFinance.Core;
 using Task6_PersonalFinance.Core.Middleware;
 using Task6_PersonalFinance.Core.Seeder;
 using Task6_PersonalFinance.Core.Services.Interfaces;
@@ -23,6 +26,28 @@ builder.Services.AddSwaggerGen();
 
 //Context
 builder.Services.AddDbContext<FinancesDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("connection")));
+
+//Authentication
+var authenticationSettings = new AuthenticationSettings();
+builder.Configuration.GetSection("Authentication").Bind(authenticationSettings);
+
+builder.Services.AddSingleton(authenticationSettings);
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = "Bearer";
+    options.DefaultScheme = "Bearer";
+    options.DefaultChallengeScheme = "Bearer";
+}).AddJwtBearer(cfg =>
+{
+    cfg.RequireHttpsMetadata = false;
+    cfg.SaveToken = true;
+    cfg.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidIssuer = authenticationSettings.JwtIssuer,
+        ValidAudience = authenticationSettings.JwtIssuer,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey))
+    };
+});
 
 //Repositories
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
@@ -56,6 +81,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseAuthentication();
 app.UseHttpsRedirection();
