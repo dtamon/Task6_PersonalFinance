@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Task6_PersonalFinance.DataAccess.Context;
 
@@ -11,9 +12,11 @@ using Task6_PersonalFinance.DataAccess.Context;
 namespace Task6PersonalFinance.DataAccess.Migrations
 {
     [DbContext(typeof(FinancesDbContext))]
-    partial class FinancesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230111125031_changed relation")]
+    partial class changedrelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +50,7 @@ namespace Task6PersonalFinance.DataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Expenses");
+                    b.ToTable("Outcomes");
                 });
 
             modelBuilder.Entity("Task6_PersonalFinance.DataAccess.Entities.Income", b =>
@@ -122,7 +125,7 @@ namespace Task6PersonalFinance.DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserExpenseCategories");
+                    b.ToTable("UserOutcomeCategories");
                 });
 
             modelBuilder.Entity("Task6_PersonalFinance.DataAccess.Entities.UserIncomeCategory", b =>

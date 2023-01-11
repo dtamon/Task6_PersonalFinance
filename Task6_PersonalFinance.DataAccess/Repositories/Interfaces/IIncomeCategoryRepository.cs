@@ -9,10 +9,10 @@ namespace Task6_PersonalFinance.DataAccess.Repositories.Interfaces
 {
     public interface IIncomeCategoryRepository
     {
-        Task<ICollection<IncomeCategory>> GetAllIncomeCategoriesAsync();
-        Task<IncomeCategory?> GetIncomeCategoryByIdAsync(int id);
-        Task CreateIncomeCategoryAsync(IncomeCategory incomeCategory);
-        Task UpdateIncomeCategoryAsync(IncomeCategory incomeCategory);
-        Task DeleteIncomeCategoryAsync(IncomeCategory incomeCategory);
+        Task<ICollection<UserIncomeCategory>> GetAllIncomeCategoriesAsync();
+        Task<UserIncomeCategory?> GetIncomeCategoryByIdAsync(int id);
+        Task CreateIncomeCategoryAsync(UserIncomeCategory incomeCategory);
+        Task UpdateIncomeCategoryAsync(UserIncomeCategory incomeCategory);
+        Task DeleteIncomeCategoryAsync(UserIncomeCategory incomeCategory);
     }
 }

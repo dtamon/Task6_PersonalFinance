@@ -19,31 +19,31 @@ namespace Task6_PersonalFinance.DataAccess.Repositories.Repositories
             _context = context;
         }
 
-        public async Task CreateIncomeCategoryAsync(IncomeCategory incomeCategory)
+        public async Task CreateIncomeCategoryAsync(UserIncomeCategory incomeCategory)
         {
-            await _context.IncomeCategories.AddAsync(incomeCategory);
+            await _context.UserIncomeCategories.AddAsync(incomeCategory);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteIncomeCategoryAsync(IncomeCategory incomeCategory)
+        public async Task DeleteIncomeCategoryAsync(UserIncomeCategory incomeCategory)
         {
-            _context.IncomeCategories.Remove(incomeCategory);
+            _context.UserIncomeCategories.Remove(incomeCategory);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<IncomeCategory>> GetAllIncomeCategoriesAsync()
+        public async Task<ICollection<UserIncomeCategory>> GetAllIncomeCategoriesAsync()
         {
-            return await _context.IncomeCategories.ToListAsync();
+            return await _context.UserIncomeCategories.ToListAsync();
         }
 
-        public async Task<IncomeCategory?> GetIncomeCategoryByIdAsync(int id)
+        public async Task<UserIncomeCategory?> GetIncomeCategoryByIdAsync(int id)
         {
-            return await _context.IncomeCategories.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.UserIncomeCategories.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task UpdateIncomeCategoryAsync(IncomeCategory incomeCategory)
+        public async Task UpdateIncomeCategoryAsync(UserIncomeCategory incomeCategory)
         {
-            _context.IncomeCategories.Update(incomeCategory);
+            _context.UserIncomeCategories.Update(incomeCategory);
             await _context.SaveChangesAsync();
         }
     }

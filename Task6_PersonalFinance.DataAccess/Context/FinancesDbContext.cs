@@ -16,8 +16,8 @@ namespace Task6_PersonalFinance.DataAccess.Context
 
         public DbSet<User> Users { get; set; }
         public DbSet<Income> Incomes { get; set; }
-        public DbSet<IncomeCategory> IncomeCategories { get; set; }
-        public DbSet<Outcome> Outcomes { get; set; }
-        public DbSet<OutcomeCategory> OutcomeCategories { get; set; }
+        public DbSet<UserIncomeCategory> UserIncomeCategories { get; set; }
+        public DbSet<Expense> Expenses { get; set; }
+        public DbSet<UserExpenseCategory> UserExpenseCategories { get; set; }
     }
 }
