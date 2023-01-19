@@ -19,29 +19,29 @@ namespace Task6_PersonalFinance.DataAccess.Repositories.Repositories
             _context = context;
         }
 
-        public async Task CreateOutcomeAsync(Expense outcome)
+        public async Task CreateExpenseAsync(Expense outcome)
         {
             await _context.Expenses.AddAsync(outcome);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteOutcomeAsync(Expense outcome)
+        public async Task DeleteExpenseAsync(Expense outcome)
         {
             _context.Expenses.Remove(outcome);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<Expense>> GetAllOutcomesAsync()
+        public async Task<ICollection<Expense>> GetAllExpenseAsync()
         {
             return await _context.Expenses.Include(x => x.Category).ToListAsync();
         }
 
-        public async Task<Expense?> GetOutcomeByIdAsync(int id)
+        public async Task<Expense?> GetExpenseByIdAsync(int id)
         {
             return await _context.Expenses.Include(x => x.Category).FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task UpdateOutcomeAsync(Expense outcome)
+        public async Task UpdateExpenseAsync(Expense outcome)
         {
             _context.Expenses.Update(outcome);
             await _context.SaveChangesAsync();

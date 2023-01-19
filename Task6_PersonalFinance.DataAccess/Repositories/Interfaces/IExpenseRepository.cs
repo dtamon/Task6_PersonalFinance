@@ -9,10 +9,10 @@ namespace Task6_PersonalFinance.DataAccess.Repositories.Interfaces
 {
     public interface IExpenseRepository
     {
-        Task<ICollection<Expense>> GetAllOutcomesAsync();
-        Task<Expense?> GetOutcomeByIdAsync(int id);
-        Task CreateOutcomeAsync(Expense outcome);
-        Task UpdateOutcomeAsync(Expense outcome);
-        Task DeleteOutcomeAsync(Expense outcome);
+        Task<ICollection<Expense>> GetAllExpenseAsync();
+        Task<Expense?> GetExpenseByIdAsync(int id);
+        Task CreateExpenseAsync(Expense outcome);
+        Task UpdateExpenseAsync(Expense outcome);
+        Task DeleteExpenseAsync(Expense outcome);
     }
 }

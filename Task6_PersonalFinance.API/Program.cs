@@ -58,6 +58,11 @@ builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>();
 
 //Services 
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IExpenseCategoryService, ExpenseCategoryService>();
+builder.Services.AddScoped<IExpenseService, ExpenseService>();
+builder.Services.AddScoped<IIncomeCategoryService, IncomeCategoryService>();
+builder.Services.AddScoped<IIncomeService, IncomeService>();
+builder.Services.AddScoped<IUserContextService, UserContextService>();
 
 //Middleware
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
@@ -68,12 +73,16 @@ builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 //Validators
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterUserValidator>();
 
+
+//Automapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 //Data Seeder
 builder.Services.AddScoped<DataSeeder>();
 
 var app = builder.Build();
 
-app.Services.CreateScope().ServiceProvider.GetRequiredService<DataSeeder>();/*.Seed();*/
+await app.Services.CreateScope().ServiceProvider.GetRequiredService<DataSeeder>().SeedAsync();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

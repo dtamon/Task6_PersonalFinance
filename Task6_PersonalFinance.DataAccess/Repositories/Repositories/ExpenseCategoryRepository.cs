@@ -19,29 +19,29 @@ namespace Task6_PersonalFinance.DataAccess.Repositories.Repositories
             _context = context;
         }
 
-        public async Task CreateOutcomeCategoryAsync(UserExpenseCategory outcomeCategory)
+        public async Task CreateExpenseCategoryAsync(UserExpenseCategory outcomeCategory)
         {
             await _context.UserExpenseCategories.AddAsync(outcomeCategory);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteOutcomeCategoryAsync(UserExpenseCategory outcomeCategory)
+        public async Task DeleteExpenseCategoryAsync(UserExpenseCategory outcomeCategory)
         {
             _context.UserExpenseCategories.Remove(outcomeCategory);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<UserExpenseCategory>> GetAllOutcomeCategoriesAsync()
+        public async Task<ICollection<UserExpenseCategory>> GetAllExpenseCategoriesAsync()
         {
             return await _context.UserExpenseCategories.ToListAsync();
         }
 
-        public async Task<UserExpenseCategory?> GetOutcomeCategoryByIdAsync(int id)
+        public async Task<UserExpenseCategory?> GetExpenseCategoryByIdAsync(int id)
         {
             return await _context.UserExpenseCategories.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task UpdateOutcomeCategoryAsync(UserExpenseCategory outcomeCategory)
+        public async Task UpdateExpenseCategoryAsync(UserExpenseCategory outcomeCategory)
         {
             _context.UserExpenseCategories.Update(outcomeCategory);
             await _context.SaveChangesAsync();
