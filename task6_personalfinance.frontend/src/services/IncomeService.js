@@ -1,14 +1,22 @@
 export default class IncomeService {
     async getAllCategories() {
         const response = await fetch(`/api/income/categories`, {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
         })
         return await response.json()
     }
 
     async getCategoryById(id) {
         const response = await fetch(`/api/income/categories/${id}`, {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
         })
         return await response.json()
     }
@@ -30,6 +38,10 @@ export default class IncomeService {
     async updateCategory(id, name) {
         const response = await fetch(`/api/income/categories/${id}`, {
             method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 id: id,
                 name: name
@@ -40,7 +52,11 @@ export default class IncomeService {
 
     async deleteCategory(id) {
         const response = await fetch(`/api/income/categories/${id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
         })
         return await response.json()
     }

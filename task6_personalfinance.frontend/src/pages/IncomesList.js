@@ -16,7 +16,7 @@ export function IncomesList() {
 
     useEffect(() => {
         fetchData();
-    }, [])
+    }, [showAddCategoryModal])
 
     return (
         <Container className="my-4">
@@ -38,11 +38,11 @@ export function IncomesList() {
             >
                 {incomeCategories.map(category => (
                     <Col key={category.id}>
-                        <BudgetCard {...category} />
+                        <BudgetCard {...category} type="Income" categories={incomeCategories} />
                     </Col>
                 ))}
             </div>
-            <AddCategoryModal show={showAddCategoryModal} handleClose={() => setShowAddCategoryModal(false)} />
+            <AddCategoryModal show={showAddCategoryModal} handleClose={() => setShowAddCategoryModal(false)} type="Income" formMode="add" />
         </Container>
     )
 }

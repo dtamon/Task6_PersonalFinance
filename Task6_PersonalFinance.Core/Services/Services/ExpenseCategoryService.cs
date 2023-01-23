@@ -27,7 +27,9 @@ namespace Task6_PersonalFinance.Core.Services.Services
 
         public async Task Add(ExpenseCategoryDto dto)
         {
-            await _expenseCategoryRepository.CreateExpenseCategoryAsync(_mapper.Map<UserExpenseCategory>(dto));
+            var expenseCategory = _mapper.Map<UserExpenseCategory>(dto);
+            expenseCategory.UserId = 1;
+            await _expenseCategoryRepository.CreateExpenseCategoryAsync(expenseCategory);
         }
 
         public async Task<ICollection<ExpenseCategoryDto>> GetAllForUser()

@@ -12,6 +12,6 @@ namespace Task6_PersonalFinance.Core.Services.Interfaces
         Task Add(IncomeCategoryDto dto);
         Task<ICollection<IncomeCategoryDto>> GetAllForUser();
         Task Remove(int id);
-        Task Update(IncomeCategoryDto dto);
+        Task Update(int id, IncomeCategoryDto dto);
     }
 }

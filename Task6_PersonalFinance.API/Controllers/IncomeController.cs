@@ -64,9 +64,9 @@ namespace Task6_PersonalFinance.API.Controllers
         }
 
         [HttpPut(CATEGORIES + "/{id}")]
-        public async Task<IActionResult> UpdateCategory(IncomeCategoryDto dto)
+        public async Task<IActionResult> UpdateCategory(int id, IncomeCategoryDto dto)
         {
-            await _incomeCategoryService.Update(dto);
+            await _incomeCategoryService.Update(id, dto);
             return Ok();
         }
 

@@ -50,9 +50,14 @@ namespace Task6_PersonalFinance.Core.Services.Services
             await _incomeCategoryRepository.DeleteIncomeCategoryAsync(incomeCategory);
         }
 
-        public async Task Update(IncomeCategoryDto dto)
+        public async Task Update(int id, IncomeCategoryDto dto)
         {
-            await _incomeCategoryRepository.UpdateIncomeCategoryAsync(_mapper.Map<UserIncomeCategory>(dto));
+            var category = await _incomeCategoryRepository.GetIncomeCategoryByIdAsync(id);
+            if (category == null)
+                throw new NotFoundException("Income category not found");
+
+            category.Name = dto.Name;
+            await _incomeCategoryRepository.UpdateIncomeCategoryAsync(category);
         }
     }
 }
