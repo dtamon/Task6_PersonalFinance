@@ -13,10 +13,12 @@ namespace Task6_PersonalFinance.Core
     {
         public PersonalFinanceMappingProfile()
         {
-            CreateMap<UserIncomeCategory, IncomeCategoryDto>();
+            CreateMap<UserIncomeCategory, IncomeCategoryDto>()
+                .ForMember(d => d.SumAmount, o => o.MapFrom(s => s.Incomes.Sum(item => item.Amount)));
             CreateMap<IncomeCategoryDto, UserIncomeCategory>();
 
-            CreateMap<UserExpenseCategory, ExpenseCategoryDto>();
+            CreateMap<UserExpenseCategory, ExpenseCategoryDto>()
+                .ForMember(d => d.SumAmount, o => o.MapFrom(s => s.Expenses.Sum(item => item.Amount)));
             CreateMap<ExpenseCategoryDto, UserExpenseCategory>();
 
             CreateMap<Income, IncomeDto>()

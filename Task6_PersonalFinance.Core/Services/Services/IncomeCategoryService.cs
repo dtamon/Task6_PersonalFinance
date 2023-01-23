@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,12 +29,17 @@ namespace Task6_PersonalFinance.Core.Services.Services
 
         public async Task Add(IncomeCategoryDto dto)
         {
-            await _incomeCategoryRepository.CreateIncomeCategoryAsync(_mapper.Map<UserIncomeCategory>(dto));
+            var incomeCategory = _mapper.Map<UserIncomeCategory>(dto);
+            incomeCategory.UserId = 1;
+            await _incomeCategoryRepository.CreateIncomeCategoryAsync(incomeCategory);
         }
 
         public async Task<ICollection<IncomeCategoryDto>> GetAllForUser()
         {
-            return _mapper.Map<ICollection<IncomeCategoryDto>>(await _incomeCategoryRepository.GetAllIncomeCategoriesAsync());
+            var cat = await _incomeCategoryRepository.GetAllIncomeCategoriesAsync();
+            var map = _mapper.Map<ICollection<IncomeCategoryDto>>(cat);
+            //return _mapper.Map<ICollection<IncomeCategoryDto>>(await _incomeCategoryRepository.GetAllIncomeCategoriesAsync());
+            return map;
         }
 
         public async Task Remove(int id)

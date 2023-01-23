@@ -33,12 +33,12 @@ namespace Task6_PersonalFinance.DataAccess.Repositories.Repositories
 
         public async Task<ICollection<UserExpenseCategory>> GetAllExpenseCategoriesAsync()
         {
-            return await _context.UserExpenseCategories.ToListAsync();
+            return await _context.UserExpenseCategories.Include(x => x.Expenses).ToListAsync();
         }
 
         public async Task<UserExpenseCategory?> GetExpenseCategoryByIdAsync(int id)
         {
-            return await _context.UserExpenseCategories.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.UserExpenseCategories.Include(x => x.Expenses).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task UpdateExpenseCategoryAsync(UserExpenseCategory outcomeCategory)

@@ -82,7 +82,8 @@ builder.Services.AddScoped<DataSeeder>();
 
 var app = builder.Build();
 
-await app.Services.CreateScope().ServiceProvider.GetRequiredService<DataSeeder>().SeedAsync();
+//Seeding data
+app.Services.CreateScope().ServiceProvider.GetRequiredService<DataSeeder>().Seed();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
