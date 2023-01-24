@@ -5,18 +5,18 @@ import { BudgetCard } from '../components/BudgetCard'
 import IncomeService from '../services/IncomeService'
 
 export function IncomesList() {
-    const incomeService = new IncomeService()
     const [incomeCategories, setIncomeCategories] = useState([])
     const [showAddCategoryModal, setShowAddCategoryModal] = useState(false)
-
-    const fetchData = async () => {
-        await incomeService.getAllCategories()
-            .then(data => setIncomeCategories(data))
-    }
+    const [showEditCategoryModal, setShowEditCategoryModal] = useState(false)
 
     useEffect(() => {
+        const incomeService = new IncomeService()
+        async function fetchData() {
+            await incomeService.getAllCategories()
+                .then(data => setIncomeCategories(data))
+        }
         fetchData();
-    }, [showAddCategoryModal])
+    }, [showAddCategoryModal, showEditCategoryModal])
 
     return (
         <Container className="my-4">
@@ -38,11 +38,11 @@ export function IncomesList() {
             >
                 {incomeCategories.map(category => (
                     <Col key={category.id}>
-                        <BudgetCard {...category} type="Income" categories={incomeCategories} />
+                        <BudgetCard {...category} type="Income" handleClose={() => setShowEditCategoryModal(false)} categories={incomeCategories} />
                     </Col>
                 ))}
             </div>
-            <AddCategoryModal show={showAddCategoryModal} handleClose={() => setShowAddCategoryModal(false)} type="Income" formMode="add" />
+            <AddCategoryModal show={showAddCategoryModal} handleClose={() => setShowAddCategoryModal(false)} type="Income" />
         </Container>
     )
 }

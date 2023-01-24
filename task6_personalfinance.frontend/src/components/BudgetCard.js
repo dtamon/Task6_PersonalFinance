@@ -1,13 +1,17 @@
 import { Button, Card, Stack } from "react-bootstrap";
 import { currencyFormatter } from "../utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddBudgetModal from "./AddBudgetModal";
-import AddCategoryModal from "./AddCategoryModal";
 import { GearFill } from "react-bootstrap-icons";
+import EditCategoryModal from "./EditCategoryModal";
 
-export function BudgetCard({ id, name, sumAmount, type, categories }) {
+export function BudgetCard({ id, name, sumAmount, handleClose, type, categories }) {
     const [showAddBudgetModal, setShowAddBudgetModal] = useState(false)
-    const [showAddCategoryModal, setShowAddCategoryModal] = useState(false)
+    const [showEditCategoryModal, setShowEditCategoryModal] = useState(false)
+
+    useEffect(() => {
+        handleClose()
+    }, [showEditCategoryModal])
 
     return (
         <>
@@ -26,7 +30,7 @@ export function BudgetCard({ id, name, sumAmount, type, categories }) {
                         </Stack>
                     </Card.Title>
                     <div className="rounded-circle justify-content-center align-items-center"
-                        onClick={() => { setShowAddCategoryModal(true) }}
+                        onClick={() => { setShowEditCategoryModal(true) }}
                         style={{
                             color: "grey",
                             width: ".5rem",
@@ -39,7 +43,7 @@ export function BudgetCard({ id, name, sumAmount, type, categories }) {
                 </Card.Body>
             </Card>
             <AddBudgetModal show={showAddBudgetModal} handleClose={() => setShowAddBudgetModal(false)} categoryId={id} categoryName={name} type={type} categories={categories} />
-            <AddCategoryModal show={showAddCategoryModal} handleClose={() => setShowAddCategoryModal(false)} id={id} name={name} type={type} formMode="edit" />
+            <EditCategoryModal show={showEditCategoryModal} handleClose={() => setShowEditCategoryModal(false)} id={id} name={name} type="Expense" />
         </>
     )
 }

@@ -30,16 +30,23 @@ namespace Task6_PersonalFinance.Core.Services.Services
         public async Task Add(IncomeCategoryDto dto)
         {
             var incomeCategory = _mapper.Map<UserIncomeCategory>(dto);
-            incomeCategory.UserId = 1;
+            incomeCategory.UserId = (int)_userContextService.GetUserId;
             await _incomeCategoryRepository.CreateIncomeCategoryAsync(incomeCategory);
         }
 
         public async Task<ICollection<IncomeCategoryDto>> GetAllForUser()
         {
-            var cat = await _incomeCategoryRepository.GetAllIncomeCategoriesAsync();
-            var map = _mapper.Map<ICollection<IncomeCategoryDto>>(cat);
-            //return _mapper.Map<ICollection<IncomeCategoryDto>>(await _incomeCategoryRepository.GetAllIncomeCategoriesAsync());
-            return map;
+            //var cat = await _incomeCategoryRepository.GetAllIncomeCategoriesAsync();
+            //var map = _mapper.Map<ICollection<IncomeCategoryDto>>(cat);
+            //return map;
+            //var userId = (int)_userContextService.GetUserId;
+            return _mapper.Map<ICollection<IncomeCategoryDto>>(await _incomeCategoryRepository.GetAllIncomeCategoriesAsync());
+            
+        }
+
+        public async Task<IncomeCategoryDto> GetById(int id)
+        {
+            return _mapper.Map<IncomeCategoryDto>(await _incomeCategoryRepository.GetIncomeCategoryByIdAsync(id));
         }
 
         public async Task Remove(int id)

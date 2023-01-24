@@ -5,18 +5,18 @@ import { BudgetCard } from '../components/BudgetCard'
 import ExpenseService from '../services/ExpenseService'
 
 export function ExpensesList() {
-    const expenseService = new ExpenseService()
     const [expenseCategories, setExpenseCategories] = useState([])
     const [showAddCategoryModal, setShowAddCategoryModal] = useState(false)
-
-    const fetchData = async () => {
-        await expenseService.getAllCategories()
-            .then(data => setExpenseCategories(data))
-    }
+    const [showEditCategoryModal, setShowEditCategoryModal] = useState(false)
 
     useEffect(() => {
+        const expenseService = new ExpenseService()
+        async function fetchData() {
+            await expenseService.getAllCategories()
+                .then(data => setExpenseCategories(data))
+        }
         fetchData();
-    }, [showAddCategoryModal])
+    }, [showAddCategoryModal, showEditCategoryModal])
 
     return (
         <Container className="my-4">
@@ -38,11 +38,11 @@ export function ExpensesList() {
             >
                 {expenseCategories.map(category => (
                     <Col key={category.id}>
-                        <BudgetCard {...category} type="Expense" />
+                        <BudgetCard {...category} handleClose={() => setShowEditCategoryModal(false)} type="Expense" categories={expenseCategories} />
                     </Col>
                 ))}
             </div>
-            <AddCategoryModal show={showAddCategoryModal} handleClose={() => setShowAddCategoryModal(false)} type="Expense" formMode="add" />
+            <AddCategoryModal show={showAddCategoryModal} handleClose={() => setShowAddCategoryModal(false)} type="Expense" />
         </Container>
     )
 }

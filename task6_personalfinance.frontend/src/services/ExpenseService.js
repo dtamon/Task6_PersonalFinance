@@ -58,6 +58,6 @@ export default class ExpenseService {
                 'Content-Type': 'application/json'
             },
         })
-        return await response.json()
+        return await response.text()
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Task6_PersonalFinance.Core.Dto;
 using Task6_PersonalFinance.Core.Services.Interfaces;
+using Task6_PersonalFinance.Core.Services.Services;
 
 namespace Task6_PersonalFinance.API.Controllers
 {
@@ -55,6 +56,13 @@ namespace Task6_PersonalFinance.API.Controllers
             return Ok(categories);
         }
 
+        [HttpGet(CATEGORIES + "/{id}")]
+        public async Task<IActionResult> GetCategoryById(int id)
+        {
+            var category = await _expenseCategoryService.GetById(id);
+            return Ok(category);
+        }
+
         [HttpPost(CATEGORIES)]
         public async Task<IActionResult> AddCategory(ExpenseCategoryDto dto)
         {
@@ -63,9 +71,9 @@ namespace Task6_PersonalFinance.API.Controllers
         }
 
         [HttpPut(CATEGORIES + "/{id}")]
-        public async Task<IActionResult> UpdateCategory(ExpenseCategoryDto dto)
+        public async Task<IActionResult> UpdateCategory(int id, ExpenseCategoryDto dto)
         {
-            await _expenseCategoryService.Update(dto);
+            await _expenseCategoryService.Update(id, dto);
             return Ok();
         }
 

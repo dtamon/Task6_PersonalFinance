@@ -30,21 +30,21 @@ namespace Task6_PersonalFinance.API.Controllers
         public async Task<IActionResult> AddIncome(IncomeDto dto)
         {
             await _incomeService.Add(dto);
-            return Ok();
+            return Ok(dto);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateIncome(IncomeDto dto)
         {
             await _incomeService.Update(dto);
-            return Ok();
+            return Ok(dto);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveIncome(int id)
         {
             await _incomeService.Remove(id);
-            return Ok();
+            return Ok(id);
         }
 
         const string CATEGORIES = "categories";
@@ -56,25 +56,32 @@ namespace Task6_PersonalFinance.API.Controllers
             return Ok(categories);
         }
 
+        [HttpGet(CATEGORIES + "/{id}")]
+        public async Task<IActionResult> GetCategoryById(int id)
+        {
+            var category = await _incomeCategoryService.GetById(id);
+            return Ok(category);
+        }
+
         [HttpPost(CATEGORIES)]
         public async Task<IActionResult> AddCategory(IncomeCategoryDto dto)
         {
             await _incomeCategoryService.Add(dto);
-            return Ok();
+            return Ok(dto);
         }
 
         [HttpPut(CATEGORIES + "/{id}")]
         public async Task<IActionResult> UpdateCategory(int id, IncomeCategoryDto dto)
         {
             await _incomeCategoryService.Update(id, dto);
-            return Ok();
+            return Ok(dto);
         }
 
         [HttpDelete(CATEGORIES + "/{id}")]
         public async Task<IActionResult> RemoveCategory(int id)
         {
             await _incomeCategoryService.Remove(id);
-            return Ok();
+            return Ok(id);
         }
 
     }

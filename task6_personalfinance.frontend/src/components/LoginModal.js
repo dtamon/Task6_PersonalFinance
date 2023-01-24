@@ -2,6 +2,7 @@ import AccountService from "../services/AccountService"
 import React, { useState } from 'react'
 import { Button, Form, Modal } from "react-bootstrap"
 import { useUser } from "../context/UserContext"
+import jwt_decode from "jwt-decode"
 
 export function LoginModal({ isOpenLoginForm }) {
     const accountService = new AccountService()
@@ -11,7 +12,6 @@ export function LoginModal({ isOpenLoginForm }) {
         openRegisterForm,
         setUserName,
         setPassword,
-        user,
         userName,
         password,
     } = useUser()
@@ -19,6 +19,7 @@ export function LoginModal({ isOpenLoginForm }) {
 
     function handleSubmit(e) {
         e.preventDefault()
+        login()
     }
 
     return (
@@ -35,6 +36,7 @@ export function LoginModal({ isOpenLoginForm }) {
                     <Form.Group className="mb-3">
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" required onChange={e => setPassword(e.target.value)} value={password} />
+                        <Form.Text className="text-danger">{error}</Form.Text>
                     </Form.Group>
                     <div className="text-center">
                         <Button variant="primary mb-3" type="submit">
@@ -46,4 +48,25 @@ export function LoginModal({ isOpenLoginForm }) {
             </Form>
         </Modal>
     )
+
+    async function login() {
+        await accountService.loginUser(userName, password)
+            .then(res => {
+                if (!res.ok) res.text().then((value) => setError(value))
+                else {
+                    closeLoginForm()
+                    setError()
+                    return res.text()
+                }
+            })
+            .then((result) => {
+                const decodedToken = jwt_decode(result)
+                setUser({
+                    token: result,
+                    userName: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
+                })
+            }, (error) => {
+                alert(error)
+            })
+    }
 }
