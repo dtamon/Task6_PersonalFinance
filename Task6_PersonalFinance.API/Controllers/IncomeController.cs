@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Task6_PersonalFinance.Core.Dto;
 using Task6_PersonalFinance.Core.Services.Interfaces;
@@ -8,6 +9,7 @@ namespace Task6_PersonalFinance.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class IncomeController : ControllerBase
     {
         private readonly IIncomeCategoryService _incomeCategoryService;
@@ -22,8 +24,22 @@ namespace Task6_PersonalFinance.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUserIncomes()
         {
-            var expenses = await _incomeService.GetAllForUser();
-            return Ok(expenses);
+            var incomes = await _incomeService.GetAllForUser();
+            return Ok(incomes);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserIncomesByCategoryId(int id)
+        {
+            var incomes = await _incomeService.GetByCategoryId(id);
+            return Ok(incomes);
+        }
+
+        [HttpGet("getBy/{id}")]
+        public async Task<IActionResult> GetIncomeById(int id)
+        {
+            var income = await _incomeService.GetByIdForUser(id);
+            return Ok(income);
         }
 
         [HttpPost]

@@ -3,3 +3,7 @@ export const currencyFormatter = new Intl.NumberFormat(undefined, {
     style: "currency",
     minimumFractionDigits: 0
 })
+
+export function formatCurrency(number) {
+    return currencyFormatter.format(number);
+}

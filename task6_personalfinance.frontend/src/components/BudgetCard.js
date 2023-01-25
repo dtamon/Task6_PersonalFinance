@@ -1,31 +1,56 @@
 import { Button, Card, Stack } from "react-bootstrap";
-import { currencyFormatter } from "../utils";
+import { currencyFormatter } from "../utils/formatCurrency";
 import { useEffect, useState } from "react";
-import AddBudgetModal from "./AddBudgetModal";
-import { GearFill } from "react-bootstrap-icons";
-import EditCategoryModal from "./EditCategoryModal";
+import AddBudgetModal from "./BudgetModals/AddBudgetModal";
+import { GearFill, TrashFill } from "react-bootstrap-icons";
+import EditCategoryModal from "./CategoryModals/EditCategoryModal";
+import ExpenseService from "../services/ExpenseService";
+import IncomeService from "../services/IncomeService";
 
-export function BudgetCard({ id, name, sumAmount, handleClose, type, categories }) {
+export function BudgetCard({ id, type, refresh }) {
+    const expenseService = new ExpenseService(), incomeService = new IncomeService()
+    const income = "Income", expense = "Expense"
+    const [category, setCategory] = useState({})
     const [showAddBudgetModal, setShowAddBudgetModal] = useState(false)
     const [showEditCategoryModal, setShowEditCategoryModal] = useState(false)
 
+    const fetchData = async () => {
+        if (type === income) {
+            await incomeService.getCategoryById(id)
+                .then(data => setCategory(data))
+        } else if (type === expense) {
+            await expenseService.getCategoryById(id)
+                .then(data => setCategory(data))
+        }
+    }
+
     useEffect(() => {
-        handleClose()
-    }, [showEditCategoryModal])
+        fetchData();
+    }, [showAddBudgetModal, showEditCategoryModal])
+
+    const deleteCategory = async () => {
+        if (type === income) {
+            await incomeService.deleteCategory(id)
+        } else if (type === expense) {
+            await expenseService.deleteCategory(id)
+        }
+        refresh(id)
+    }
 
     return (
         <>
             <Card>
                 <Card.Body>
                     <Card.Title className="d-flex justify-content-between align-items-baseline fw-normal mb-3">
-                        <div className="me-2">{name}</div>
+                        <div className="me-2">{category.name}</div>
                         <Stack direction="horizontal" gap="2">
                             <Button variant="outline-primary" size="sm" className="ms-auto rounded-circle justify-content-center align-items-center"
                                 onClick={() => setShowAddBudgetModal(true)}>+</Button>
                             <Button variant="outline-secondary" size="sm" className="rounded-circle justify-content-center align-items-center"
+                            // onClick={() => setShowBudgetListModal(true)}
                             >O</Button>
                             <div className="d-flex align-items-baseline">
-                                {currencyFormatter.format(sumAmount)}
+                                {currencyFormatter.format(category.sumAmount)}
                             </div>
                         </Stack>
                     </Card.Title>
@@ -42,8 +67,8 @@ export function BudgetCard({ id, name, sumAmount, handleClose, type, categories 
                     ><GearFill /></div>
                 </Card.Body>
             </Card>
-            <AddBudgetModal show={showAddBudgetModal} handleClose={() => setShowAddBudgetModal(false)} categoryId={id} categoryName={name} type={type} categories={categories} />
-            <EditCategoryModal show={showEditCategoryModal} handleClose={() => setShowEditCategoryModal(false)} id={id} name={name} type="Expense" />
+            <AddBudgetModal show={showAddBudgetModal} handleClose={() => setShowAddBudgetModal(false)} {...category} type={type} />
+            <EditCategoryModal show={showEditCategoryModal} handleClose={() => { setShowEditCategoryModal(false); }} onDelete={(id) => { setShowEditCategoryModal(); deleteCategory(id) }} {...category} type={type} />
         </>
     )
 }

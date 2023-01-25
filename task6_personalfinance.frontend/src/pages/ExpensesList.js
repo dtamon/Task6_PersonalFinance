@@ -1,22 +1,23 @@
 import { useEffect, useState } from 'react'
 import { Container, Stack, Button, Col } from 'react-bootstrap'
-import AddCategoryModal from '../components/AddCategoryModal'
+import AddCategoryModal from '../components/CategoryModals/AddCategoryModal'
 import { BudgetCard } from '../components/BudgetCard'
 import ExpenseService from '../services/ExpenseService'
 
 export function ExpensesList() {
+    const expenseService = new ExpenseService()
     const [expenseCategories, setExpenseCategories] = useState([])
     const [showAddCategoryModal, setShowAddCategoryModal] = useState(false)
-    const [showEditCategoryModal, setShowEditCategoryModal] = useState(false)
+    const [refresh, setRefresh] = useState()
+
+    const fetchData = async () => {
+        await expenseService.getAllCategories()
+            .then(data => setExpenseCategories(data))
+    }
 
     useEffect(() => {
-        const expenseService = new ExpenseService()
-        async function fetchData() {
-            await expenseService.getAllCategories()
-                .then(data => setExpenseCategories(data))
-        }
         fetchData();
-    }, [showAddCategoryModal, showEditCategoryModal])
+    }, [showAddCategoryModal, refresh])
 
     return (
         <Container className="my-4">
@@ -38,7 +39,7 @@ export function ExpensesList() {
             >
                 {expenseCategories.map(category => (
                     <Col key={category.id}>
-                        <BudgetCard {...category} handleClose={() => setShowEditCategoryModal(false)} type="Expense" categories={expenseCategories} />
+                        <BudgetCard {...category} refresh={(e) => setRefresh(e)} type="Expense" />
                     </Col>
                 ))}
             </div>

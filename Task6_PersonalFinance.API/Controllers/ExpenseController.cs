@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Task6_PersonalFinance.Core.Dto;
 using Task6_PersonalFinance.Core.Services.Interfaces;
@@ -8,6 +9,7 @@ namespace Task6_PersonalFinance.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ExpenseController : ControllerBase
     {
         private readonly IExpenseCategoryService _expenseCategoryService;
@@ -26,25 +28,39 @@ namespace Task6_PersonalFinance.API.Controllers
             return Ok(expenses);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserExpensesByCategoryId(int id)
+        {
+            var expenses = await _expenseService.GetByCategoryId(id);
+            return Ok(expenses);
+        }
+
+        [HttpGet("getBy/{id}")]
+        public async Task<IActionResult> GetExpenseById(int id)
+        {
+            var expense = await _expenseService.GetByIdForUser(id);
+            return Ok(expense);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddExpense(ExpenseDto dto)
         {
             await _expenseService.Add(dto);
-            return Ok();
+            return Ok(dto);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateExpense(ExpenseDto dto)
         {
             await _expenseService.Update(dto);
-            return Ok();
+            return Ok(dto);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveExpense(int id)
         {
             await _expenseService.Remove(id);
-            return Ok();
+            return Ok(id);
         }
 
         const string CATEGORIES = "categories";
@@ -67,21 +83,21 @@ namespace Task6_PersonalFinance.API.Controllers
         public async Task<IActionResult> AddCategory(ExpenseCategoryDto dto)
         {
             await _expenseCategoryService.Add(dto);
-            return Ok();
+            return Ok(dto);
         }
 
         [HttpPut(CATEGORIES + "/{id}")]
         public async Task<IActionResult> UpdateCategory(int id, ExpenseCategoryDto dto)
         {
             await _expenseCategoryService.Update(id, dto);
-            return Ok();
+            return Ok(dto);
         }
 
         [HttpDelete(CATEGORIES + "/{id}")]
         public async Task<IActionResult> RemoveCategory(int id)
         {
             await _expenseCategoryService.Remove(id);
-            return Ok();
+            return Ok(id);
         }
     }
 }

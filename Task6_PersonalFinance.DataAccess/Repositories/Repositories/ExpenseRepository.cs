@@ -41,6 +41,11 @@ namespace Task6_PersonalFinance.DataAccess.Repositories.Repositories
             return await _context.Expenses.Include(x => x.Category).FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<ICollection<Expense>> GetExpensesByCategoryIdAsync(int id)
+        {
+            return await _context.Expenses.Where(x => x.CategoryId == id).ToListAsync();
+        }
+
         public async Task UpdateExpenseAsync(Expense outcome)
         {
             _context.Expenses.Update(outcome);

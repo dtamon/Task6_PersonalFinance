@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react"
-import { LoginModal } from "../components/LoginModal"
-import { RegisterModal } from "../components/RegisterModal"
+import { useLocalStorage } from "../hooks/useLocalStorage"
+import { LoginModal } from "../components/AccountModals/LoginModal"
+import { RegisterModal } from "../components/AccountModals/RegisterModal"
 
 const UserContext = React.createContext()
 
@@ -13,7 +14,7 @@ export function useUser() {
 export const UserProvider = ({ children }) => {
     const [isOpenLoginForm, setIsOpenLoginForm] = useState(false)
     const [isOpenRegisterForm, setIsOpenRegisterForm] = useState(false)
-    const [user, setUser] = useState()
+    const [user, setUser] = useLocalStorage("user", {})
     const [userName, setUserName] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()

@@ -39,8 +39,8 @@ namespace Task6_PersonalFinance.Core.Services.Services
             //var cat = await _incomeCategoryRepository.GetAllIncomeCategoriesAsync();
             //var map = _mapper.Map<ICollection<IncomeCategoryDto>>(cat);
             //return map;
-            //var userId = (int)_userContextService.GetUserId;
-            return _mapper.Map<ICollection<IncomeCategoryDto>>(await _incomeCategoryRepository.GetAllIncomeCategoriesAsync());
+            var userId = (int)_userContextService.GetUserId;
+            return _mapper.Map<ICollection<IncomeCategoryDto>>(await _incomeCategoryRepository.GetAllIncomeCategoriesAsync(userId));
             
         }
 

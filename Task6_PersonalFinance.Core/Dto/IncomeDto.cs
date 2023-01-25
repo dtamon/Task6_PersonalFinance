@@ -13,5 +13,6 @@ namespace Task6_PersonalFinance.Core.Dto
         public int CategoryName { get; set; }
         public double Amount { get; set; }
         public string Comment { get; set; }
+        public DateTime Date { get; set; }
     }
 }

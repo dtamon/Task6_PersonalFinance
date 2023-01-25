@@ -41,6 +41,11 @@ namespace Task6_PersonalFinance.DataAccess.Repositories.Repositories
             return await _context.Incomes.FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<ICollection<Income>> GetIncomesByCategoryIdAsync(int id)
+        {
+            return await _context.Incomes.Where(x => x.CategoryId == id).ToListAsync();
+        }
+
         public async Task UpdateIncomeAsync(Income income)
         {
             _context.Incomes.Update(income);

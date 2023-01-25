@@ -9,7 +9,7 @@ namespace Task6_PersonalFinance.DataAccess.Repositories.Interfaces
 {
     public interface IExpenseCategoryRepository
     {
-        Task<ICollection<UserExpenseCategory>> GetAllExpenseCategoriesAsync();
+        Task<ICollection<UserExpenseCategory>> GetAllExpenseCategoriesAsync(int userId);
         Task<UserExpenseCategory?> GetExpenseCategoryByIdAsync(int id);
         Task CreateExpenseCategoryAsync(UserExpenseCategory outcomeCategory);
         Task UpdateExpenseCategoryAsync(UserExpenseCategory outcomeCategory);

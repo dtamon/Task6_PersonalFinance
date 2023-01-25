@@ -1,7 +1,7 @@
-import AccountService from "../services/AccountService"
+import AccountService from "../../services/AccountService"
 import React, { useState } from 'react'
 import { Button, Form, Modal } from "react-bootstrap"
-import { useUser } from "../context/UserContext"
+import { useUser } from "../../context/UserContext"
 import jwt_decode from "jwt-decode"
 
 export function LoginModal({ isOpenLoginForm }) {

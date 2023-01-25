@@ -1,8 +1,11 @@
+import { authHeader } from "../utils/authHeader"
+
 export default class ExpenseService {
     async getAllCategories() {
         const response = await fetch(`/api/expense/categories`, {
             method: 'GET',
             headers: {
+                'Authorization': authHeader(),
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
@@ -14,6 +17,7 @@ export default class ExpenseService {
         const response = await fetch(`/api/expense/categories/${id}`, {
             method: 'GET',
             headers: {
+                'Authorization': authHeader(),
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
@@ -25,6 +29,7 @@ export default class ExpenseService {
         const response = await fetch(`/api/expense/categories`, {
             method: 'POST',
             headers: {
+                'Authorization': authHeader(),
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
@@ -35,16 +40,17 @@ export default class ExpenseService {
         return await response.json()
     }
 
-    async updateCategory(id, name) {
+    async updateCategory(id, categoryName) {
         const response = await fetch(`/api/expense/categories/${id}`, {
             method: 'PUT',
             headers: {
+                'Authorization': authHeader(),
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 id: id,
-                name: name
+                name: categoryName
             })
         })
         return await response.json()
@@ -54,10 +60,53 @@ export default class ExpenseService {
         const response = await fetch(`/api/expense/categories/${id}`, {
             method: 'DELETE',
             headers: {
+                'Authorization': authHeader(),
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
         })
         return await response.text()
+    }
+
+    async getExpensesByCategoryId(id) {
+        const response = await fetch(`/api/expense/${id}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': authHeader(),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        return await response.json()
+    }
+
+    async getExpenseById(id) {
+        const response = await fetch(`/api/expense/getById/${id}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': authHeader(),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        return await response.json()
+    }
+
+    async createBudgetForCategory(id, amount, date, comment) {
+        const response = await fetch(`/api/expense`, {
+            method: 'POST',
+            headers: {
+                'Authorization': authHeader(),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                categoryId: id,
+                amount: amount,
+                comment: comment,
+                date: date
+            })
+        })
+        return await response.json()
     }
 }

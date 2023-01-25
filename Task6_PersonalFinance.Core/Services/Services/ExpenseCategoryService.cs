@@ -29,13 +29,14 @@ namespace Task6_PersonalFinance.Core.Services.Services
         public async Task Add(ExpenseCategoryDto dto)
         {
             var expenseCategory = _mapper.Map<UserExpenseCategory>(dto);
-            expenseCategory.UserId = 1;
+            expenseCategory.UserId = (int)_userContextService.GetUserId;
             await _expenseCategoryRepository.CreateExpenseCategoryAsync(expenseCategory);
         }
 
         public async Task<ICollection<ExpenseCategoryDto>> GetAllForUser()
         {
-            return _mapper.Map<ICollection<ExpenseCategoryDto>>(await _expenseCategoryRepository.GetAllExpenseCategoriesAsync());
+            var userId = (int)_userContextService.GetUserId;
+            return _mapper.Map<ICollection<ExpenseCategoryDto>>(await _expenseCategoryRepository.GetAllExpenseCategoriesAsync(userId));
         }
 
         public async Task<ExpenseCategoryDto> GetById(int id)

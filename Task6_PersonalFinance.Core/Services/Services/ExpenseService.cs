@@ -35,6 +35,11 @@ namespace Task6_PersonalFinance.Core.Services.Services
             return _mapper.Map<ICollection<ExpenseDto>>(await _expenseRepository.GetAllExpenseAsync());
         }
 
+        public async Task<ICollection<ExpenseDto>> GetByCategoryId(int id)
+        {
+            return _mapper.Map<ICollection<ExpenseDto>>(await _expenseRepository.GetExpensesByCategoryIdAsync(id));
+        }
+
         public async Task<ExpenseDto> GetByIdForUser(int id)
         {
             return _mapper.Map<ExpenseDto>(await _expenseRepository.GetAllExpenseAsync());

@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { Button, Form, Modal } from "react-bootstrap"
-import ExpenseService from "../services/ExpenseService"
-import IncomeService from "../services/IncomeService"
+import ExpenseService from "../../services/ExpenseService"
+import IncomeService from "../../services/IncomeService"
 
-export default function AddBudgetModal({ show, handleClose, categoryId, categoryName, type, categories }) {
+export default function AddBudgetModal({ show, handleClose, id, name, type }) {
     const incomeService = new IncomeService()
     const expenseService = new ExpenseService()
     const [category, setCategory] = useState()
@@ -13,10 +13,11 @@ export default function AddBudgetModal({ show, handleClose, categoryId, category
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        handleClose()
         if (type === "Income") {
-            await incomeService.createCategory(categoryName)
+            await incomeService.createBudgetForCategory(id, amount, date, comment)
         } else if (type === "Expense") {
-            await expenseService.createCategory(categoryName)
+            await expenseService.createBudgetForCategory(id, amount, date, comment)
         }
     }
 
@@ -24,17 +25,9 @@ export default function AddBudgetModal({ show, handleClose, categoryId, category
         <Modal show={show} onHide={handleClose} centered>
             <Form onSubmit={handleSubmit}>
                 <Modal.Header closeButton>
-                    <Modal.Title>New {type} for {categoryName}</Modal.Title>
+                    <Modal.Title>New {type} for {name}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {/* <Form.Group className="mb-3">
-                        <Form.Label>Category</Form.Label>
-                        <Form.Select onChange={(e) => { setCategory(e.target.key) }} >
-                            {categories.map(category => (
-                                <option key={category.id} value={category.id}>{category.name}</option>
-                            ))}
-                        </Form.Select>
-                    </Form.Group> */}
                     <Form.Group className="mb-3">
                         <Form.Label>Amount</Form.Label>
                         <Form.Control type="number" required min={0} step={0.01} onChange={(e) => setAmount(e.target.value)} value={amount} />

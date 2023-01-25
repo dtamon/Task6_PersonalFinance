@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react'
 import { Container, Stack, Button, Col } from 'react-bootstrap'
-import AddCategoryModal from '../components/AddCategoryModal'
+import AddCategoryModal from '../components/CategoryModals/AddCategoryModal'
 import { BudgetCard } from '../components/BudgetCard'
 import IncomeService from '../services/IncomeService'
 
 export function IncomesList() {
+    const incomeService = new IncomeService()
     const [incomeCategories, setIncomeCategories] = useState([])
     const [showAddCategoryModal, setShowAddCategoryModal] = useState(false)
-    const [showEditCategoryModal, setShowEditCategoryModal] = useState(false)
+
+    const fetchData = async () => {
+        await incomeService.getAllCategories()
+            .then(data => setIncomeCategories(data))
+    }
 
     useEffect(() => {
-        const incomeService = new IncomeService()
-        async function fetchData() {
-            await incomeService.getAllCategories()
-                .then(data => setIncomeCategories(data))
-        }
         fetchData();
-    }, [showAddCategoryModal, showEditCategoryModal])
+    }, [showAddCategoryModal])
 
     return (
         <Container className="my-4">
@@ -38,7 +38,7 @@ export function IncomesList() {
             >
                 {incomeCategories.map(category => (
                     <Col key={category.id}>
-                        <BudgetCard {...category} type="Income" handleClose={() => setShowEditCategoryModal(false)} categories={incomeCategories} />
+                        <BudgetCard {...category} type="Income" refresh={() => fetchData()} />
                     </Col>
                 ))}
             </div>

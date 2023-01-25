@@ -12,12 +12,17 @@ export function Navbar() {
                     <Nav.Link to="/" as={NavLink}>
                         Summary
                     </Nav.Link>
-                    <Nav.Link to="/incomes" as={NavLink}>
-                        Incomes
-                    </Nav.Link>
-                    <Nav.Link to="/expenses" as={NavLink}>
-                        Expenses
-                    </Nav.Link>
+                    {user !== undefined ?
+                        <>
+                            <Nav.Link to="/incomes" as={NavLink}>
+                                Incomes
+                            </Nav.Link>
+                            <Nav.Link to="/expenses" as={NavLink}>
+                                Expenses
+                            </Nav.Link>
+                        </>
+                        : <></>
+                    }
                 </Nav>
                 {user !== undefined ?
                     <>

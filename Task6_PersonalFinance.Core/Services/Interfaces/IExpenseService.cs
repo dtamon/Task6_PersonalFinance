@@ -11,6 +11,7 @@ namespace Task6_PersonalFinance.Core.Services.Interfaces
     {
         Task Add(ExpenseDto dto);
         Task<ICollection<ExpenseDto>> GetAllForUser();
+        Task<ICollection<ExpenseDto>> GetByCategoryId(int id);
         Task<ExpenseDto> GetByIdForUser(int id);
         Task Remove(int id);
         Task Update(ExpenseDto dto);

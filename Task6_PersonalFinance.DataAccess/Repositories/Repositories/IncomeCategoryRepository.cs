@@ -31,14 +31,14 @@ namespace Task6_PersonalFinance.DataAccess.Repositories.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<UserIncomeCategory>> GetAllIncomeCategoriesAsync()
+        public async Task<ICollection<UserIncomeCategory>> GetAllIncomeCategoriesAsync(int userId)
         {
-            return await _context.UserIncomeCategories.Include(x => x.Incomes).ToListAsync();
+            return await _context.UserIncomeCategories.Include(x => x.Incomes).Where(x => x.UserId == userId).ToListAsync();
         }
 
         public async Task<UserIncomeCategory?> GetIncomeCategoryByIdAsync(int id)
         {
-            return await _context.UserIncomeCategories.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.UserIncomeCategories.Include(x => x.Incomes).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task UpdateIncomeCategoryAsync(UserIncomeCategory incomeCategory)
