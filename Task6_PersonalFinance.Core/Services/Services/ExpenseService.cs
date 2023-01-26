@@ -9,6 +9,7 @@ using Task6_PersonalFinance.Core.Exceptions;
 using Task6_PersonalFinance.Core.Services.Interfaces;
 using Task6_PersonalFinance.DataAccess.Entities;
 using Task6_PersonalFinance.DataAccess.Repositories.Interfaces;
+using Task6_PersonalFinance.DataAccess.Repositories.Repositories;
 
 namespace Task6_PersonalFinance.Core.Services.Services
 {
@@ -53,9 +54,17 @@ namespace Task6_PersonalFinance.Core.Services.Services
             await _expenseRepository.DeleteExpenseAsync(expense);
         }
 
-        public async Task Update(ExpenseDto dto)
+        public async Task Update(int id, ExpenseDto dto)
         {
-            await _expenseRepository.UpdateExpenseAsync(_mapper.Map<Expense>(dto));
+            var expense = await _expenseRepository.GetExpenseByIdAsync(id);
+            if (expense == null)
+                throw new NotFoundException("Expense not found");
+
+            expense.Amount = dto.Amount;
+            expense.Comment = dto.Comment;
+            expense.Date = dto.Date;
+
+            await _expenseRepository.UpdateExpenseAsync(expense);
         }
     }
 }

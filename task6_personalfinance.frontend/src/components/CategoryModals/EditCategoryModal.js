@@ -37,6 +37,8 @@ export default function EditCategoryModal({ show, handleClose, id, name, type, o
                         <Form.Label>Category Name</Form.Label>
                         <Form.Control type="text" required onChange={(e) => setCategoryName(e.target.value)} value={categoryName} />
                     </Form.Group>
+                </Modal.Body>
+                <Modal.Footer>
                     <div className="d-flex justify-content-end">
                         <Button variant="primary me-2" type="submit">
                             Save
@@ -45,7 +47,7 @@ export default function EditCategoryModal({ show, handleClose, id, name, type, o
                             Remove
                         </Button>
                     </div>
-                </Modal.Body>
+                </Modal.Footer>
             </Form>
         </Modal>
     )

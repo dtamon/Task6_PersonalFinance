@@ -36,12 +36,14 @@ export default function AddCategoryModal({ show, handleClose, type }) {
                         <Form.Label>Category Name</Form.Label>
                         <Form.Control type="text" required onChange={(e) => setCategoryName(e.target.value)} value={categoryName} />
                     </Form.Group>
+                </Modal.Body>
+                <Modal.Footer>
                     <div className="d-flex justify-content-end">
                         <Button variant="primary" type="submit">
                             Save
                         </Button>
                     </div>
-                </Modal.Body>
+                </Modal.Footer>
             </Form>
         </Modal>
     )

@@ -70,14 +70,14 @@ namespace Task6_PersonalFinance.Core.Seeder
         {
             return new List<Expense>()
             {
-                new Expense() {CategoryId = 1, Amount = 35.00, Comment = "weekly groceries", Date = new DateTime(2022, 12, 1, 18, 30, 00)},
-                new Expense() {CategoryId = 1, Amount = 25.00, Comment = "weekly groceries", Date = new DateTime(2022, 12, 8, 18, 30, 00)},
-                new Expense() {CategoryId = 1, Amount = 35.00, Comment = "weekly groceries", Date = new DateTime(2022, 12, 15, 18, 30, 00)},
+                new Expense() {CategoryId = 1, Amount = 35.00, Comment = "weekly groceries", Date = new DateTime(2022, 12, 1, 00, 00, 00)},
+                new Expense() {CategoryId = 1, Amount = 25.00, Comment = "weekly groceries", Date = new DateTime(2022, 12, 8, 00, 00, 00)},
+                new Expense() {CategoryId = 1, Amount = 35.00, Comment = "weekly groceries", Date = new DateTime(2022, 12, 15,  00, 00, 00)},
                 new Expense() {CategoryId = 2, Amount = 65.00, Comment = "monthly carnet fee", Date = new DateTime(2022, 12, 1, 00, 00, 00)},
-                new Expense() {CategoryId = 2, Amount = 65.00, Comment = "monthly carnet fee", Date = new DateTime(2023, 1, 1, 00, 00, 00)},
+                new Expense() {CategoryId = 2, Amount = 65.00, Comment = "monthly carnet fee", Date = new DateTime(2023, 1, 1,  00, 00, 00)},
                 new Expense() {CategoryId = 2, Amount = 65.00, Comment = "monthly carnet fee", Date = new DateTime(2023, 2, 1, 00, 00, 00)},
-                new Expense() {CategoryId = 3, Amount = 20.00, Comment = "spinning baits", Date = new DateTime(2022, 12, 6, 16, 30, 00)},
-                new Expense() {CategoryId = 3, Amount = 35.00, Comment = "new fishing line", Date = new DateTime(2023, 1, 15, 16, 00, 00)},
+                new Expense() {CategoryId = 3, Amount = 20.00, Comment = "spinning baits", Date = new DateTime(2022, 12, 6,  00, 00, 00)},
+                new Expense() {CategoryId = 3, Amount = 35.00, Comment = "new fishing line", Date = new DateTime(2023, 1, 15,  00, 00, 00)},
                 new Expense() {CategoryId = 3, Amount = 12.00, Comment = "groundbaits", Date = new DateTime(2023, 1, 20, 17, 00, 00)},
             };
         }

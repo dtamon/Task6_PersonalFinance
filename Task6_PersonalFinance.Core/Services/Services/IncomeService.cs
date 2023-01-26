@@ -48,15 +48,22 @@ namespace Task6_PersonalFinance.Core.Services.Services
 
         public async Task Remove(int id)
         {
-            var expense = await _incomeRepository.GetIncomeByIdAsync(id);
-            if (expense == null)
-                throw new NotFoundException("Expense not found");
-            await _incomeRepository.DeleteIncomeAsync(expense);
+            var income = await _incomeRepository.GetIncomeByIdAsync(id);
+            if (income == null)
+                throw new NotFoundException("Income not found");
+            await _incomeRepository.DeleteIncomeAsync(income);
         }
 
-        public async Task Update(IncomeDto dto)
+        public async Task Update(int id, IncomeDto dto)
         {
-            await _incomeRepository.UpdateIncomeAsync(_mapper.Map<Income>(dto));
+            var income = await _incomeRepository.GetIncomeByIdAsync(id);
+            if (income == null)
+                throw new NotFoundException("Expense not found");
+
+            income.Amount = dto.Amount;
+            income.Comment = dto.Comment;
+            income.Date = dto.Date;
+            await _incomeRepository.UpdateIncomeAsync(income);
         }
     }
 }

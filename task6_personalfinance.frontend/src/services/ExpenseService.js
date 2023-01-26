@@ -109,4 +109,35 @@ export default class ExpenseService {
         })
         return await response.json()
     }
+
+    async deleteBudget(id) {
+        const response = await fetch(`/api/expense/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': authHeader(),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        return await response.json()
+    }
+
+    async updateBudget(id, categoryId, amount, comment, date) {
+        const response = await fetch(`/api/expense/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': authHeader(),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: id,
+                categoryId: categoryId,
+                amount: amount,
+                comment: comment,
+                date: date
+            })
+        })
+        return await response.json()
+    }
 }

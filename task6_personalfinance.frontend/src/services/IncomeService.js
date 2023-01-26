@@ -68,7 +68,7 @@ export default class IncomeService {
         return await response.json()
     }
 
-    async getIncomeByCategoryId(id) {
+    async getIncomesByCategoryId(id) {
         const response = await fetch(`/api/income/${id}`, {
             method: 'GET',
             headers: {
@@ -80,9 +80,21 @@ export default class IncomeService {
         return await response.json()
     }
 
-    async getIncomeById(id, amount, date, comment) {
-        const response = await fetch(`/api/income`, {
+    async getIncomeById(id) {
+        const response = await fetch(`/api/income/getById/${id}`, {
             method: 'GET',
+            headers: {
+                'Authorization': authHeader(),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        return await response.json()
+    }
+
+    async createBudgetForCategory(id, amount, date, comment) {
+        const response = await fetch(`/api/income`, {
+            method: 'POST',
             headers: {
                 'Authorization': authHeader(),
                 'Accept': 'application/json',
@@ -90,6 +102,37 @@ export default class IncomeService {
             },
             body: JSON.stringify({
                 categoryId: id,
+                amount: amount,
+                comment: comment,
+                date: date
+            })
+        })
+        return await response.json()
+    }
+
+    async deleteBudget(id) {
+        const response = await fetch(`/api/income/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': authHeader(),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        return await response.json()
+    }
+
+    async updateBudget(id, categoryId, amount, comment, date) {
+        const response = await fetch(`/api/income/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': authHeader(),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: id,
+                categoryId: categoryId,
                 amount: amount,
                 comment: comment,
                 date: date

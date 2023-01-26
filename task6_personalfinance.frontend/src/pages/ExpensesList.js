@@ -43,7 +43,9 @@ export function ExpensesList() {
                     </Col>
                 ))}
             </div>
-            <AddCategoryModal show={showAddCategoryModal} handleClose={() => setShowAddCategoryModal(false)} type="Expense" />
+            {showAddCategoryModal &&
+                <AddCategoryModal show={showAddCategoryModal} handleClose={() => setShowAddCategoryModal(false)} type="Expense" />
+            }
         </Container>
     )
 }

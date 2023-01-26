@@ -50,9 +50,9 @@ namespace Task6_PersonalFinance.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateExpense(ExpenseDto dto)
+        public async Task<IActionResult> UpdateExpense(int id, ExpenseDto dto)
         {
-            await _expenseService.Update(dto);
+            await _expenseService.Update(id, dto);
             return Ok(dto);
         }
 

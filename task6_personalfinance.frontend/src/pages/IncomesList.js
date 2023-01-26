@@ -42,7 +42,9 @@ export function IncomesList() {
                     </Col>
                 ))}
             </div>
-            <AddCategoryModal show={showAddCategoryModal} handleClose={() => setShowAddCategoryModal(false)} type="Income" />
+            {showAddCategoryModal &&
+                <AddCategoryModal show={showAddCategoryModal} handleClose={() => setShowAddCategoryModal(false)} type="Income" />
+            }
         </Container>
     )
 }
