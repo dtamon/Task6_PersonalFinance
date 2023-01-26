@@ -6,7 +6,7 @@ import EditCategoryModal from "./CategoryModals/EditCategoryModal";
 import BudgetHistoryList from "./BudgetModals/BudgetHistoryList";
 import ExpenseService from "../services/ExpenseService";
 import IncomeService from "../services/IncomeService";
-import { GearFill, PlusCircle, PlusLg } from "react-bootstrap-icons";
+import { GearFill } from "react-bootstrap-icons";
 
 export function BudgetCard({ id, type, refresh }) {
     const expenseService = new ExpenseService(), incomeService = new IncomeService()
@@ -55,9 +55,6 @@ export function BudgetCard({ id, type, refresh }) {
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" fill="#35b64f"></path>
                                 </svg>
                             </Button>
-                            {/* <Button variant="outline-secondary" size="sm" className="rounded-circle justify-content-center align-items-center"
-                                onClick={() => setShowBudgetHistoryList(true)}
-                            >O</Button> */}
                             <div className="d-flex align-items-baseline">
                                 {currencyFormatter.format(category.sumAmount)}
                             </div>
