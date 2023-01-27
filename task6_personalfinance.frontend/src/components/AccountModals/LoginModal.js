@@ -2,7 +2,10 @@ import AccountService from "../../services/AccountService"
 import React, { useState } from 'react'
 import { Button, Form, Modal } from "react-bootstrap"
 import { useUser } from "../../context/UserContext"
-import jwt_decode from "jwt-decode"
+import jwt_decode from 'jwt-decode'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export function LoginModal({ isOpenLoginForm }) {
     const accountService = new AccountService()
@@ -14,6 +17,7 @@ export function LoginModal({ isOpenLoginForm }) {
         setPassword,
         userName,
         password,
+        showSuccessToast,
     } = useUser()
     const [error, setError] = useState()
 
@@ -46,16 +50,23 @@ export function LoginModal({ isOpenLoginForm }) {
                     </div>
                 </Modal.Body>
             </Form>
+            <ToastContainer />
         </Modal>
     )
 
     async function login() {
         await accountService.loginUser(userName, password)
             .then(res => {
-                if (!res.ok) res.text().then((value) => setError(value))
+                if (!res.ok) {
+                    res.text().then((value) => setError(value))
+                    toast.error("Incorrect username or password", {
+                        position: toast.POSITION.BOTTOM_RIGHT
+                    });
+                }
                 else {
                     closeLoginForm()
                     setError()
+                    showSuccessToast("Signed in successfully")
                     return res.text()
                 }
             })

@@ -7,8 +7,10 @@ import BudgetHistoryList from "./BudgetModals/BudgetHistoryList";
 import ExpenseService from "../services/ExpenseService";
 import IncomeService from "../services/IncomeService";
 import { GearFill } from "react-bootstrap-icons";
+import { useUser } from "../context/UserContext"
 
 export function BudgetCard({ id, type, refresh }) {
+    const { showSuccessToast } = useUser()
     const expenseService = new ExpenseService(), incomeService = new IncomeService()
     const income = "Income", expense = "Expense"
     const [category, setCategory] = useState({})
@@ -37,6 +39,7 @@ export function BudgetCard({ id, type, refresh }) {
             await expenseService.deleteCategory(id)
         }
         refresh(id)
+        showSuccessToast(type + " category deleted successfully")
     }
 
     return (

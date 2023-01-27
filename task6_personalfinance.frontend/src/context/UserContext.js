@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react"
 import { useLocalStorage } from "../hooks/useLocalStorage"
 import { LoginModal } from "../components/AccountModals/LoginModal"
 import { RegisterModal } from "../components/AccountModals/RegisterModal"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const UserContext = React.createContext()
 
@@ -33,6 +35,11 @@ export const UserProvider = ({ children }) => {
 
     const closeRegisterForm = () => setIsOpenRegisterForm(false)
 
+    const showSuccessToast = (message) => {
+        toast.success(message, {
+            position: toast.POSITION.BOTTOM_RIGHT
+        });
+    }
 
     return (
         <UserContext.Provider
@@ -46,6 +53,7 @@ export const UserProvider = ({ children }) => {
                 closeLoginForm,
                 openRegisterForm,
                 closeRegisterForm,
+                showSuccessToast,
                 user,
                 userName,
                 email,
@@ -56,6 +64,7 @@ export const UserProvider = ({ children }) => {
             {children}
             <LoginModal isOpenLoginForm={isOpenLoginForm} />
             <RegisterModal isOpenRegisterForm={isOpenRegisterForm} />
+            <ToastContainer />
         </UserContext.Provider>
     )
 }

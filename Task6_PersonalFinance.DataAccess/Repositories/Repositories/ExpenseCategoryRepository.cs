@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Task6_PersonalFinance.DataAccess.Context;
 using Task6_PersonalFinance.DataAccess.Entities;
+using Task6_PersonalFinance.DataAccess.Queries;
 using Task6_PersonalFinance.DataAccess.Repositories.Interfaces;
 
 namespace Task6_PersonalFinance.DataAccess.Repositories.Repositories
@@ -31,9 +32,10 @@ namespace Task6_PersonalFinance.DataAccess.Repositories.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<UserExpenseCategory>> GetAllExpenseCategoriesAsync(int userId)
+        public async Task<ICollection<UserExpenseCategory>> GetAllExpenseCategoriesAsync(int userId, SearchQuery query)
         {
-            return await _context.UserExpenseCategories.Include(x => x.Expenses).Where(x => x.UserId == userId).ToListAsync();
+            return await _context.UserExpenseCategories.Include(x => x.Expenses).Where(x => x.UserId == userId)
+                .ToListAsync();
         }
 
         public async Task<UserExpenseCategory?> GetExpenseCategoryByIdAsync(int id)

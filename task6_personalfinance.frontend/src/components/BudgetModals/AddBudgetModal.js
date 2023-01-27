@@ -2,8 +2,10 @@ import { useState } from "react"
 import { Button, Form, Modal } from "react-bootstrap"
 import ExpenseService from "../../services/ExpenseService"
 import IncomeService from "../../services/IncomeService"
+import { useUser } from "../../context/UserContext"
 
 export default function AddBudgetModal({ show, handleClose, id, name, type }) {
+    const { showSuccessToast } = useUser()
     const incomeService = new IncomeService()
     const expenseService = new ExpenseService()
     const [amount, setAmount] = useState()
@@ -18,6 +20,7 @@ export default function AddBudgetModal({ show, handleClose, id, name, type }) {
         } else if (type === "Expense") {
             await expenseService.createBudgetForCategory(id, amount, date, comment)
         }
+        showSuccessToast(type + " added successfully")
     }
 
     return (

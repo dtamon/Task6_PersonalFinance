@@ -1,7 +1,9 @@
 import AccountService from '../../services/AccountService'
 import React, { useState } from 'react'
-import { Button, Form, Modal } from "react-bootstrap"
+import { Button, Form, Modal, Toast } from "react-bootstrap"
 import { useUser } from '../../context/UserContext'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export function RegisterModal({ isOpenRegisterForm }) {
     const accountService = new AccountService()
@@ -15,7 +17,8 @@ export function RegisterModal({ isOpenRegisterForm }) {
         userName,
         email,
         password,
-        confirmPassword
+        confirmPassword,
+        showSuccessToast
     } = useUser()
 
     const [userNameError, setUserNameError] = useState()
@@ -62,6 +65,7 @@ export function RegisterModal({ isOpenRegisterForm }) {
                     </div>
                 </Modal.Body>
             </Form>
+            <ToastContainer />
         </Modal>
     )
 
@@ -81,11 +85,14 @@ export function RegisterModal({ isOpenRegisterForm }) {
                     result.errors.Email !== undefined ? setEmailError(result.errors.Email[0]) : setEmailError()
                     result.errors.Password !== undefined ? setPasswordError(result.errors.Password[0]) : setPasswordError()
                     result.errors.ConfirmPassword !== undefined ? setconfirmPasswordError(result.errors.ConfirmPassword[0]) : setconfirmPasswordError()
+                    toast.error("Form filled out incorrectly", {
+                        position: toast.POSITION.BOTTOM_RIGHT
+                    });
                 } else {
                     openLoginForm()
                     closeRegisterForm()
                     resetForm()
-                    alert(result)
+                    showSuccessToast("Signed up successfully")
                 }
             }, (error) => {
                 alert(error)

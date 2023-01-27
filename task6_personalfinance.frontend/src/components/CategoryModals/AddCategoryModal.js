@@ -2,8 +2,10 @@ import { Button, Form, Modal } from "react-bootstrap"
 import React, { useState } from 'react'
 import IncomeService from "../../services/IncomeService"
 import ExpenseService from "../../services/ExpenseService"
+import { useUser } from "../../context/UserContext"
 
 export default function AddCategoryModal({ show, handleClose, type }) {
+    const { showSuccessToast } = useUser()
     const incomeService = new IncomeService()
     const expenseService = new ExpenseService()
     const income = "Income"
@@ -15,6 +17,7 @@ export default function AddCategoryModal({ show, handleClose, type }) {
         handleClose()
         createCategory()
         setCategoryName()
+        showSuccessToast(type + " category added successfully")
     }
 
     const createCategory = async () => {

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Task6_PersonalFinance.Core.Dto;
 using Task6_PersonalFinance.Core.Services.Interfaces;
 using Task6_PersonalFinance.Core.Services.Services;
+using Task6_PersonalFinance.DataAccess.Queries;
 
 namespace Task6_PersonalFinance.API.Controllers
 {
@@ -66,9 +67,9 @@ namespace Task6_PersonalFinance.API.Controllers
         const string CATEGORIES = "categories";
 
         [HttpGet(CATEGORIES)]
-        public async Task<IActionResult> GetUserCategories()
+        public async Task<IActionResult> GetUserCategories([FromQuery] SearchQuery query)
         {
-            var categories = await _incomeCategoryService.GetAllForUser();
+            var categories = await _incomeCategoryService.GetAllForUser(query);
             return Ok(categories);
         }
 

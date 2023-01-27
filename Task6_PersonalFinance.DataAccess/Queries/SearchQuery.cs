@@ -8,6 +8,7 @@ namespace Task6_PersonalFinance.DataAccess.Queries
 {
     public class SearchQuery
     {
-        public string? searchPhrase {get;set;}
+        public DateTime? DateFrom { get; set; }
+        public DateTime? DateTo { get; set; }
     }
 }

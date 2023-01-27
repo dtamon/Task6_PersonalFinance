@@ -2,7 +2,19 @@ import { authHeader } from "../utils/authHeader"
 
 export default class IncomeService {
     async getAllCategories() {
-        const response = await fetch(`/api/income/categories`, {
+        const response = await fetch(`/api/income/categories?dateFrom=&dateTo=`, {
+            method: 'GET',
+            headers: {
+                'Authorization': authHeader(),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        return await response.json()
+    }
+
+    async getAllCategoriesFromRange(dateFrom, dateTo) {
+        const response = await fetch(`/api/income/categories?dateFrom=${dateFrom}&dateTo=${dateTo}`, {
             method: 'GET',
             headers: {
                 'Authorization': authHeader(),

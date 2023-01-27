@@ -5,10 +5,12 @@ import ExpenseService from '../../services/ExpenseService'
 import IncomeService from '../../services/IncomeService'
 import { TrashFill } from 'react-bootstrap-icons'
 import EditBudgetModal from './EditBudgetModal'
+import { useUser } from "../../context/UserContext"
 
 export default function BudgetHistoryList({ show, handleClose, categoryId, categoryName, type }) {
     const expenseService = new ExpenseService(), incomeService = new IncomeService()
     const income = "Income", expense = "Expense"
+    const { showSuccessToast } = useUser()
     const [categoryItems, setCategoryItems] = useState([])
     const [showEditBudgetModal, setShowEditBudgetModal] = useState(false)
     const [budgetItem, setBudgetItem] = useState({})
@@ -30,6 +32,7 @@ export default function BudgetHistoryList({ show, handleClose, categoryId, categ
             await expenseService.deleteBudget(id)
         }
         fetchData()
+        showSuccessToast(type + " deleted successfully")
     }
 
     useEffect(() => {

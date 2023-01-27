@@ -2,7 +2,19 @@ import { authHeader } from "../utils/authHeader"
 
 export default class ExpenseService {
     async getAllCategories() {
-        const response = await fetch(`/api/expense/categories`, {
+        const response = await fetch(`/api/expense/categories?dateFrom=&dateTo=`, {
+            method: 'GET',
+            headers: {
+                'Authorization': authHeader(),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        return await response.json()
+    }
+
+    async getAllCategoriesFromRange(dateFrom, dateTo) {
+        const response = await fetch(`/api/expense/categories?dateFrom=${dateFrom}&dateTo=${dateTo}`, {
             method: 'GET',
             headers: {
                 'Authorization': authHeader(),

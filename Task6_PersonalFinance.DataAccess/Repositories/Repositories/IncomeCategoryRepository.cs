@@ -6,7 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Task6_PersonalFinance.DataAccess.Context;
 using Task6_PersonalFinance.DataAccess.Entities;
+using Task6_PersonalFinance.DataAccess.Queries;
 using Task6_PersonalFinance.DataAccess.Repositories.Interfaces;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Task6_PersonalFinance.DataAccess.Repositories.Repositories
 {
@@ -31,9 +33,10 @@ namespace Task6_PersonalFinance.DataAccess.Repositories.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<UserIncomeCategory>> GetAllIncomeCategoriesAsync(int userId)
+        public async Task<ICollection<UserIncomeCategory>> GetAllIncomeCategoriesAsync(int userId, SearchQuery query)
         {
-            return await _context.UserIncomeCategories.Include(x => x.Incomes).Where(x => x.UserId == userId).ToListAsync();
+            return await _context.UserIncomeCategories.Include(x => x.Incomes).Where(x => x.UserId == userId)
+                .ToListAsync();
         }
 
         public async Task<UserIncomeCategory?> GetIncomeCategoryByIdAsync(int id)

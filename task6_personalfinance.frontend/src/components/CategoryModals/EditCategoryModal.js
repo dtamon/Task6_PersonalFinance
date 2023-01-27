@@ -2,8 +2,10 @@ import { Button, Form, Modal } from "react-bootstrap"
 import React, { useEffect, useState } from 'react'
 import IncomeService from "../../services/IncomeService"
 import ExpenseService from "../../services/ExpenseService"
+import { useUser } from "../../context/UserContext"
 
 export default function EditCategoryModal({ show, handleClose, id, name, type, onDelete }) {
+    const { showSuccessToast } = useUser()
     const expenseService = new ExpenseService(), incomeService = new IncomeService()
     const income = "Income", expense = "Expense"
     const [categoryName, setCategoryName] = useState()
@@ -24,6 +26,7 @@ export default function EditCategoryModal({ show, handleClose, id, name, type, o
         } else if (type === expense) {
             await expenseService.updateCategory(id, categoryName)
         }
+        showSuccessToast(type + " category updated successfully")
     }
 
     return (

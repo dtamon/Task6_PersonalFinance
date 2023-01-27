@@ -9,6 +9,7 @@ using Task6_PersonalFinance.Core.Dto;
 using Task6_PersonalFinance.Core.Exceptions;
 using Task6_PersonalFinance.Core.Services.Interfaces;
 using Task6_PersonalFinance.DataAccess.Entities;
+using Task6_PersonalFinance.DataAccess.Queries;
 using Task6_PersonalFinance.DataAccess.Repositories.Interfaces;
 using Task6_PersonalFinance.DataAccess.Repositories.Repositories;
 
@@ -34,13 +35,13 @@ namespace Task6_PersonalFinance.Core.Services.Services
             await _incomeCategoryRepository.CreateIncomeCategoryAsync(incomeCategory);
         }
 
-        public async Task<ICollection<IncomeCategoryDto>> GetAllForUser()
+        public async Task<ICollection<IncomeCategoryDto>> GetAllForUser(SearchQuery query)
         {
             //var cat = await _incomeCategoryRepository.GetAllIncomeCategoriesAsync();
             //var map = _mapper.Map<ICollection<IncomeCategoryDto>>(cat);
             //return map;
             var userId = (int)_userContextService.GetUserId;
-            return _mapper.Map<ICollection<IncomeCategoryDto>>(await _incomeCategoryRepository.GetAllIncomeCategoriesAsync(userId));
+            return _mapper.Map<ICollection<IncomeCategoryDto>>(await _incomeCategoryRepository.GetAllIncomeCategoriesAsync(userId, query));
             
         }
 

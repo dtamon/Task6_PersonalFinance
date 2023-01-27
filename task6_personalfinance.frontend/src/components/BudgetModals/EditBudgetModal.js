@@ -2,8 +2,10 @@ import { useState, useEffect } from "react"
 import { Button, Form, Modal } from "react-bootstrap"
 import ExpenseService from "../../services/ExpenseService"
 import IncomeService from "../../services/IncomeService"
+import { useUser } from "../../context/UserContext"
 
 export default function EditBudgetModal({ show, handleClose, id, categoryId, amount, comment, date, type }) {
+    const { showSuccessToast } = useUser()
     const incomeService = new IncomeService()
     const expenseService = new ExpenseService()
     const [budgetAmount, setAmount] = useState()
@@ -24,6 +26,7 @@ export default function EditBudgetModal({ show, handleClose, id, categoryId, amo
             await expenseService.updateBudget(id, categoryId, budgetAmount, budgetComment, budgetDate)
         }
         handleClose()
+        showSuccessToast(type + " updated successfully")
     }
 
     return (
