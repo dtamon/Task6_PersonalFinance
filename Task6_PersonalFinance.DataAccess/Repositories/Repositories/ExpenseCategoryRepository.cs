@@ -34,7 +34,9 @@ namespace Task6_PersonalFinance.DataAccess.Repositories.Repositories
 
         public async Task<ICollection<UserExpenseCategory>> GetAllExpenseCategoriesAsync(int userId, SearchQuery query)
         {
-            return await _context.UserExpenseCategories.Include(x => x.Expenses).Where(x => x.UserId == userId)
+            return await _context.UserExpenseCategories.Include(x => x.Expenses.Where(x => (query.DateFrom == null || query.DateFrom <= x.Date)
+                                                                                        && (query.DateTo == null || x.Date <= query.DateTo)))
+                .Where(x => x.UserId == userId)
                 .ToListAsync();
         }
 

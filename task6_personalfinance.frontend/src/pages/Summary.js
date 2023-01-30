@@ -10,22 +10,20 @@ export function Summary() {
     const { user } = useUser()
     const [incomeCategories, setIncomeCategories] = useState([])
     const [expenseCategories, setExpenseCategories] = useState([])
-    const [dateRange, setDateRange] = useState({
-        dateFrom: "",
-        dateTo: "",
-    })
+    const [dateFrom, setDateFrom] = useState("")
+    const [dateTo, setDateTo] = useState("")
 
 
     const fetchData = async () => {
-        await incomeService.getAllCategoriesFromRange(dateRange.dateFrom, dateRange.dateTo)
+        await incomeService.getAllCategoriesFromRange(dateFrom, dateTo)
             .then(data => setIncomeCategories(data))
-        await expenseService.getAllCategoriesFromRange(dateRange.dateFrom, dateRange.dateTo)
+        await expenseService.getAllCategoriesFromRange(dateFrom, dateTo)
             .then(data => setExpenseCategories(data))
     }
 
     useEffect(() => {
         fetchData();
-    }, [])
+    }, [dateFrom, dateTo])
 
     return (
         <Container className='bg-white'>
@@ -34,13 +32,13 @@ export function Summary() {
                     <div className='d-flex justify-content-center mb-3 row text-center'>
                         <InputGroup className='mt-3' style={{ width: "auto" }}>
                             <InputGroup.Text>Date From</InputGroup.Text>
-                            <Form.Control type="date" required onChange={(e) => setDateRange(e.target.value)} value={dateRange.dateFrom} />
-                            <Button variant='outline-primary' onClick={() => setDateRange({ dateFrom: "" })}>Clear</Button>
+                            <Form.Control type="date" required onChange={(e) => setDateFrom(e.target.value)} value={dateFrom} />
+                            <Button variant='outline-primary' onClick={() => setDateFrom("")}>Clear</Button>
                         </InputGroup>
                         <InputGroup className='mt-3 auto' style={{ width: "auto" }}>
                             <InputGroup.Text>Date From</InputGroup.Text>
-                            <Form.Control type="date" required onChange={(e) => setDateRange({ dateTo: e.target.value })} value={dateRange.dateTo} />
-                            <Button variant='outline-primary' onClick={() => setDateRange({ dateTo: "" })}>Clear</Button>
+                            <Form.Control type="date" required onChange={(e) => setDateTo(e.target.value)} value={dateTo} />
+                            <Button variant='outline-primary' onClick={() => setDateTo("")}>Clear</Button>
                         </InputGroup>
                     </div>
 
