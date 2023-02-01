@@ -47,7 +47,7 @@ namespace Task6PersonalFinance.DataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Expenses");
+                    b.ToTable("Expenses", (string)null);
                 });
 
             modelBuilder.Entity("Task6_PersonalFinance.DataAccess.Entities.Income", b =>
@@ -75,7 +75,7 @@ namespace Task6PersonalFinance.DataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Incomes");
+                    b.ToTable("Incomes", (string)null);
                 });
 
             modelBuilder.Entity("Task6_PersonalFinance.DataAccess.Entities.User", b =>
@@ -100,7 +100,7 @@ namespace Task6PersonalFinance.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Task6_PersonalFinance.DataAccess.Entities.UserExpenseCategory", b =>
@@ -122,7 +122,7 @@ namespace Task6PersonalFinance.DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserExpenseCategories");
+                    b.ToTable("UserExpenseCategories", (string)null);
                 });
 
             modelBuilder.Entity("Task6_PersonalFinance.DataAccess.Entities.UserIncomeCategory", b =>
@@ -144,7 +144,7 @@ namespace Task6PersonalFinance.DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserIncomeCategories");
+                    b.ToTable("UserIncomeCategories", (string)null);
                 });
 
             modelBuilder.Entity("Task6_PersonalFinance.DataAccess.Entities.Expense", b =>

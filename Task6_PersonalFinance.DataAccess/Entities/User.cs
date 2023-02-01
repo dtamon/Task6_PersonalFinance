@@ -13,7 +13,7 @@ namespace Task6_PersonalFinance.DataAccess.Entities
         public string Email { get; set; }
         public string PasswordHash { get; set; }
 
-        public virtual ICollection<UserIncomeCategory> IncomeCategories { get; set; } = new List<UserIncomeCategory>();
-        public virtual ICollection<UserExpenseCategory> ExpenseCategories { get; set; } = new List<UserExpenseCategory>();
+        public ICollection<UserIncomeCategory> IncomeCategories { get; set; } = new List<UserIncomeCategory>();
+        public ICollection<UserExpenseCategory> ExpenseCategories { get; set; } = new List<UserExpenseCategory>();
     }
 }
