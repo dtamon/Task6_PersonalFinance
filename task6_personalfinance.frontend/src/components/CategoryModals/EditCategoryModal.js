@@ -14,9 +14,9 @@ export default function EditCategoryModal({ show, handleClose, id, name, type, o
         setCategoryName(name);
     }, [name])
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
-        updateCategory()
+        await updateCategory()
         handleClose()
     }
 

@@ -12,10 +12,10 @@ export default function AddCategoryModal({ show, handleClose, type }) {
     const expense = "Expense"
     const [categoryName, setCategoryName] = useState()
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
+        await createCategory()
         handleClose()
-        createCategory()
         setCategoryName()
         showSuccessToast(type + " category added successfully")
     }

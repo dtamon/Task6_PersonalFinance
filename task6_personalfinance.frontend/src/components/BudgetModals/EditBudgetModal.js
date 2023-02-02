@@ -18,7 +18,7 @@ export default function EditBudgetModal({ show, handleClose, id, categoryId, amo
         setComment(comment)
     }, [amount, comment, date])
 
-    const handleSubmit = async (e) => {
+    async function handleSubmit(e) {
         e.preventDefault()
         if (type === "Income") {
             await incomeService.updateBudget(id, categoryId, budgetAmount, budgetComment, budgetDate)

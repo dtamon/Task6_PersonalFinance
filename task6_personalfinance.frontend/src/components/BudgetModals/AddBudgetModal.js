@@ -12,14 +12,14 @@ export default function AddBudgetModal({ show, handleClose, id, name, type }) {
     const [date, setDate] = useState()
     const [comment, setComment] = useState()
 
-    const handleSubmit = async (e) => {
+    async function handleSubmit(e) {
         e.preventDefault()
-        handleClose()
         if (type === "Income") {
             await incomeService.createBudgetForCategory(id, amount, date, comment)
         } else if (type === "Expense") {
             await expenseService.createBudgetForCategory(id, amount, date, comment)
         }
+        handleClose()
         showSuccessToast(type + " added successfully")
     }
 
