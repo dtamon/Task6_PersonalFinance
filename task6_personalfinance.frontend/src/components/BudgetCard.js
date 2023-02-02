@@ -18,6 +18,13 @@ export function BudgetCard({ id, type, refresh }) {
     const [showBudgetHistoryList, setShowBudgetHistoryList] = useState(false)
     const [showEditCategoryModal, setShowEditCategoryModal] = useState(false)
 
+    const classNames = []
+    if (type === income) {
+        classNames.push("bg-success", "bg-opacity-10")
+    } else if (type === expense) {
+        classNames.push("bg-danger", "bg-opacity-10")
+    }
+
     const fetchData = async () => {
         if (type === income) {
             await incomeService.getCategoryById(id)
@@ -44,7 +51,7 @@ export function BudgetCard({ id, type, refresh }) {
 
     return (
         <>
-            <Card>
+            <Card className={classNames.join(" ")}>
                 <Card.Body onDoubleClick={() => { setShowBudgetHistoryList(true) }}>
                     <Card.Title className="d-flex justify-content-between align-items-baseline fw-normal mb-3">
                         <div className="me-2">{category.name}</div>
@@ -55,7 +62,7 @@ export function BudgetCard({ id, type, refresh }) {
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="20" height="20" fill="currentColor"
                                     className="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" fill="#35b64f"></path>
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" fill="#384bfc"></path>
                                 </svg>
                             </Button>
                             <div className="d-flex align-items-baseline">
